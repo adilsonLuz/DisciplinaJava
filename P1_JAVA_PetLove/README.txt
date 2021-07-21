@@ -1,0 +1,1 @@
+A pasta pet love é do banco de dados do derby, e a pasta ProvaP1 é o projeto java.
