@@ -5,6 +5,7 @@
  */
 package br.com.p2java.view;
 
+import br.com.p2java.controler.ProdutosDAO;
 import java.awt.Image;
 import java.io.File;
 import java.text.MessageFormat;
@@ -39,6 +40,8 @@ public class CadastroProduto extends javax.swing.JFrame {
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("p2java?zeroDateTimeBehavior=convertToNullPU").createEntityManager();
         produtoQuery = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Produto p");
         produtoList = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : produtoQuery.getResultList();
+        produtoQuery1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Produto p");
+        produtoList1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : produtoQuery1.getResultList();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableGrid = new javax.swing.JTable();
         panelBotoes = new javax.swing.JPanel();
@@ -85,11 +88,10 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de produtos");
-        setPreferredSize(new java.awt.Dimension(800, 650));
 
         tableGrid.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, produtoList, tableGrid);
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, produtoList1, tableGrid);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${id}"));
         columnBinding.setColumnName("Id");
         columnBinding.setColumnClass(Integer.class);
@@ -503,20 +505,9 @@ public class CadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_btImprimirActionPerformed
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
-        txtCodigo.setText("");
-        cbStatus.setSelectedIndex(-1);
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
-        txtCodigo.setText("");
+         new ProdutosDAO().limparCampos(panelProduto);
+         new ProdutosDAO().limparCampos(panelValores);
+         lbImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/iconVazio.png")));
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btnPesqImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesqImgActionPerformed
@@ -645,7 +636,9 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JPanel panelTitulo;
     private javax.swing.JPanel panelValores;
     private java.util.List<br.com.p2java.view.Produto> produtoList;
+    private java.util.List<br.com.p2java.view.Produto> produtoList1;
     private javax.persistence.Query produtoQuery;
+    private javax.persistence.Query produtoQuery1;
     private javax.swing.JTable tableGrid;
     private javax.swing.JTextField txtCaminho;
     private javax.swing.JTextField txtCodBar;
